@@ -1,7 +1,9 @@
 extern crate bytes;
 extern crate rust_tcp_io_perf;
 extern crate hdrhist;
+extern crate meansd;
 
+use meansd::MeanSD;
 use std::time::Instant;
 use std::{thread, time};
 use rust_tcp_io_perf::config;
@@ -21,6 +23,8 @@ fn main() {
     let mut rbuf: Vec<u8> = vec![0; n_bytes];
 
     let progress_tracking_percentage = (n_rounds * 2) / 100;
+
+    let mut meansd = MeanSD::default();
 
     let mut connected = false;
 
@@ -53,6 +57,7 @@ fn main() {
                             duration.as_secs() * 1_000_000_000u64 + duration.subsec_nanos() as u64,
                         );
                         results.push(duration);
+                        meansd.update(duration_nanoseconds as f64 / 1000.0);
                         if duration_nanoseconds > max {
                             max = duration_nanoseconds;
                         }
@@ -73,7 +78,23 @@ fn main() {
                     min as f64 / 1000.0
                 );
                 print_utils::print_line();
-                println!("results: {:?}", results);
+                println!(
+                    "meansd size {} average {}, sstdev {}",
+                    meansd.size(),
+                    meansd.mean(),
+                    meansd.sstdev(),
+                );
+
+                let mut sum = 0.0;
+                for res in results.clone() {
+                    let duration_nanoseconds =
+                        res.as_secs() * 1_000_000_000u64 + res.subsec_nanos() as u64;
+                    sum = sum + duration_nanoseconds as f64 / 1000.0;
+                }
+
+                let len = results.len();
+                println!("results size {} average {}", len, sum / len as f64);
+                // println!("results: {:?}", results);
                 connection::close_connection(&stream);
                 // print_utils::print_summary(hist);
             }

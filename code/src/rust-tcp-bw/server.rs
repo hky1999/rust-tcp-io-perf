@@ -54,8 +54,8 @@ fn main() {
     if tot_bytes_stable != 0 {
         // print_utils::print_summary(hist);
         println!(
-            "Available approximated bandwidth: {} MB/s",
-            tot_bytes_stable * 1000 / tot_time_stable
+            "Available approximated bandwidth: {:.10} MB/s",
+            (tot_bytes_stable * 1000) as f64 / tot_time_stable as f64
         );
     } else {
         println!(
