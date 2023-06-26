@@ -23,7 +23,7 @@ fn main() {
 
         // Create a buffer of 0s, size n_bytes, to be sent over multiple times
         let buf = vec![0; n_bytes];
-        let progress_tracking_percentage = n_rounds / 100;
+        let progress_tracking_percentage = n_rounds / 10;
 
         for i in 0..n_rounds {
             match stream.write(&buf) {
@@ -31,7 +31,7 @@ fn main() {
                 Err(err) => panic!("crazy stuff happened while sending {}", err),
             }
             if i % progress_tracking_percentage == 0 {
-                println!("{}% completed", i / progress_tracking_percentage);
+                println!("{}0% completed", i / progress_tracking_percentage);
             }
         }
         println!("Sent everything!");
