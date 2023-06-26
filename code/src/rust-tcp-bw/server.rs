@@ -40,10 +40,10 @@ fn main() {
                 tot_bytes_stable += recv as u64;
                 tot_time_stable += duration_ns;
             }
-            println!(
-                "round {}, recv {} bytes in {} ns, tot_bytes {}",
-                _i, recv, duration_ns, tot_bytes
-            );
+            // println!(
+            //     "round {}, recv {} bytes in {} ns, tot_bytes {}",
+            //     _i, recv, duration_ns, tot_bytes
+            // );
         } else {
             active = false;
         }

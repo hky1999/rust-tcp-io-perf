@@ -22,7 +22,7 @@ fn main() {
     let wbuf: Vec<u8> = vec![0; n_bytes];
     let mut rbuf: Vec<u8> = vec![0; n_bytes];
 
-    let progress_tracking_percentage = (n_rounds * 2) / 100;
+    let progress_tracking_percentage = (n_rounds * 2) / 10;
 
     let mut meansd = MeanSD::default();
 
@@ -68,7 +68,7 @@ fn main() {
 
                     if i % progress_tracking_percentage == 0 {
                         // Track progress on screen
-                        println!("{}% completed", i / progress_tracking_percentage);
+                        println!("{}0% completed", i / progress_tracking_percentage);
                     }
                 }
                 print_utils::print_line();
