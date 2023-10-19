@@ -41,10 +41,10 @@ pub fn receive_message(n_bytes: usize, stream: &mut TcpStream, rbuf: &mut Vec<u8
 }
 
 /// Setup the streams and eventually pins the thread according to the configuration.
-pub fn setup(config: &Config, stream: &mut TcpStream) {
-    if config.no_delay {
-        stream.set_nodelay(true).expect("Can't set no_delay to true");
-    }
+pub fn setup(_config: &Config, stream: &TcpStream) {
+    // if config.no_delay {
+    stream.set_nodelay(true).expect("Can't set no_delay to true");
+    // }
     // if config.non_blocking {
     //     stream.set_nonblocking(true).expect("Can't set channel to be non-blocking");
     // }

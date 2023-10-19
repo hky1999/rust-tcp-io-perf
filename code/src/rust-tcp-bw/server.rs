@@ -22,7 +22,7 @@ fn main() {
     let mut _i = 0;
 
     let mut stream = connection::server_listen_and_get_first_connection(&args.port);
-
+    connection::setup(&args, &stream);
     let mut start = Instant::now();
     let mut end = Instant::now();
     while active {
