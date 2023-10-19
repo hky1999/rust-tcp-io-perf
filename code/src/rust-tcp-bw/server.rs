@@ -40,10 +40,10 @@ fn main() {
                 tot_bytes_stable += recv as u64;
                 tot_time_stable += duration_ns;
             }
-            println!(
-                "round {}, recv {} bytes in {} ns, tot_bytes {}",
-                _i, recv, duration_ns, tot_bytes
-            );
+            // println!(
+            //     "round {}, recv {} bytes in {} ns, tot_bytes {}",
+            //     _i, recv, duration_ns, tot_bytes
+            // );
         } else {
             active = false;
         }
@@ -54,8 +54,8 @@ fn main() {
     if tot_bytes_stable != 0 {
         // print_utils::print_summary(hist);
         println!(
-            "Available approximated bandwidth: {} MB/s",
-            tot_bytes_stable * 1000 / tot_time_stable
+            "Available approximated bandwidth: {:.10} MB/s",
+            (tot_bytes_stable * 1000) as f64 / tot_time_stable as f64
         );
     } else {
         println!(
