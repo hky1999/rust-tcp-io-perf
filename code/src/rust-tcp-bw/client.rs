@@ -4,6 +4,8 @@ extern crate rust_tcp_io_perf;
 use rust_tcp_io_perf::connection;
 use std::io::Write;
 use rust_tcp_io_perf::config;
+use rust_tcp_io_perf::threading;
+
 
 fn main() {
     let args = config::parse_config();
@@ -20,6 +22,7 @@ fn main() {
 
     if let Ok(mut stream) = connection::client_connect(args.address_and_port()) {
         connection::setup(&args, &stream);
+		threading::setup(&args);
         println!("Connection established! Ready to send...");
 
         // Create a buffer of 0s, size n_bytes, to be sent over multiple times
